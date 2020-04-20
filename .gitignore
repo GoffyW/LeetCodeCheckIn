@@ -1,0 +1,9 @@
+# Project exclude paths
+/out/
+/.idea
+*.iml
+.idea/.gitignore
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+LeetCodeCheckIn.iml
