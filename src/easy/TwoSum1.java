@@ -1,17 +1,53 @@
 package easy;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * @author GoffyGUO
  */
 public class TwoSum1 {
+    private static Map<Integer, String> map = new HashMap<Integer, String>();
     public static void main(String[] args) {
-        int[] nums = {2, 7, 11, 15};
+        /*int[] nums = {2, 7, 11, 15};
         int target = 9;
 
-        System.out.println(twoSum(nums, target));
+        System.out.println(twoSum(nums, target));*/
+        for(int i = 0; i < 10; i++) {
+            map.put(i, "value" + i);
+        }
+        for(Entry<Integer, String> entry : map.entrySet()){
+            Integer key = entry.getKey();
+            if(key % 2 == 0){
+                System.out.println("To delete key " + key);
+                map.remove(key);
+                System.out.println("The key " + + key + " was deleted");
+            }
+        }
+        Set<Integer> keySet = map.keySet();
+        for(Integer key : keySet){
+            if(key % 2 == 0){
+                System.out.println("To delete key " + key);
+                keySet.remove(key);
+                System.out.println("The key " + + key + " was deleted");
+            }
+        }
+
+        Iterator<Entry<Integer, String>> it = map.entrySet().iterator();
+        while(it.hasNext()){
+            Entry<Integer, String> entry = it.next();
+            Integer key = entry.getKey();
+            if(key % 2 == 0){
+                System.out.println("To delete key " + key);
+                it.remove();
+                System.out.println("The key " + + key + " was deleted");
+
+            }
+        }
+
     }
     /**
      * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
