@@ -1,9 +1,11 @@
 package easy;
 
+import java.io.Serializable;
+
 /**
  * @author GoffyGUO
  */
-public class ReverseInt7 {
+public class ReverseInt7 implements Serializable {
     public static void main(String[] args) {
 
         System.out.println(reverse(-123));
