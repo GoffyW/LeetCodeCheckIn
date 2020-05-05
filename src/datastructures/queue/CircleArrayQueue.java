@@ -5,9 +5,11 @@ import java.util.Scanner;
 /**
  * @author GoffyGUO
  */
-public class ArrayQueueDemo {
+public class CircleArrayQueue {
+
     public static void main(String[] args) {
-        ArrayQueue queue = new ArrayQueue(3);
+        // 3
+        CircleQueue queue = new CircleQueue(4);
         // 接受用户输入
         char key = ' ';
         Scanner scanner = new Scanner(System.in);
@@ -58,22 +60,26 @@ public class ArrayQueueDemo {
     }
 }
 
-
 /**
- * 使用数组模拟队列的实现
+ * 使用数组模拟[环形]队列的实现
+ * 思路：front就是指队列的第一个元素，也就是说arr[front]就是队列的第一个元素，初始值为0
+ * rear指向队列的最后一个元素的后一个位置，因为希望空出一个位置作为约定，初始值为0
+ * 当队列满时，条件是(rear+1)%maxSize = front[满]
+ * 队列为空的条件，rear = front [空]
+ * 队列中有效数据个数，(rear + maxSize -front) % maxSize
  */
-class ArrayQueue {
+class CircleQueue {
 
     /**
      * 数组容量大小
      */
     private int maxSize;
     /**
-     * 队列头
+     * 与之前的做一个调整，front就是指队列的第一个元素，也就是说arr[front]就是队列的第一个元素，初始值为0
      */
     private int front;
     /**
-     * 队列尾
+     * 与之前的做一个调整，rear指向队列的最后一个元素的后一个位置，因为希望空出一个位置作为约定，初始值为0
      */
     private int rear;
     /**
@@ -86,13 +92,9 @@ class ArrayQueue {
      *
      * @param arrMaxSize 初始化大小容量
      */
-    public ArrayQueue(int arrMaxSize) {
+    public CircleQueue(int arrMaxSize) {
         maxSize = arrMaxSize;
         arr = new int[arrMaxSize];
-        // 指向队列头部，分析出front是指向队列头部的前一个位置
-        front = -1;
-        // 指向队列尾，指向队列尾的数据（即就是队列的最后一个数据）
-        rear = -1;
     }
 
     /**
@@ -101,7 +103,7 @@ class ArrayQueue {
      * @return
      */
     public boolean isFull() {
-        return rear == maxSize - 1;
+        return (rear + 1) % maxSize == front;
     }
 
     /**
@@ -123,9 +125,10 @@ class ArrayQueue {
             System.out.println("队列已满，无法加入数据");
             return;
         }
-        // 让rear 后移
-        rear++;
+        // 直接将数据加入
         arr[rear] = n;
+        // 将rear后移
+        rear = (rear + 1) % maxSize;
     }
 
     /**
@@ -138,9 +141,13 @@ class ArrayQueue {
         if (isEmpty()) {
             throw new RuntimeException("队列为空，无法取出数据");
         }
-        // front后移
-        front++;
-        return arr[front];
+        //这里需要分析
+        //1、先把front对应的值保存到一个临时变量
+        //2、将front后移
+        //3、将临时变量的值返回
+        int i = arr[front];
+        front = (front + 1) % maxSize;
+        return i;
     }
 
     /**
@@ -152,9 +159,17 @@ class ArrayQueue {
             System.out.println("队列为空，没有数据");
             return;
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.printf("arr[%d]=%d\n", i, arr[i]);
+        // 思路：从front开始遍历，遍历多少个元素
+        for (int i = front; i < front + size(); i++) {
+            System.out.printf("arr[%d]=%d\n", i % maxSize, arr[i % maxSize]);
         }
+    }
+
+    public int size() {
+        // rear = 1
+        // front = 0
+        // maxSize = 3
+        return (rear + maxSize - front) % maxSize;
     }
 
     /**
@@ -166,8 +181,10 @@ class ArrayQueue {
         if (isEmpty()) {
             throw new RuntimeException("队列为空，没有头数据");
         }
-        return arr[front + 1];
+        return arr[front];
     }
 
 
 }
+
+
