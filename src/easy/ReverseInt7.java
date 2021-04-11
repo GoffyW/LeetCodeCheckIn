@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author GoffyGUO
+ * https://leetcode-cn.com/problems/reverse-integer/
  */
 public class ReverseInt7 implements Serializable {
     public static void main(String[] args) {
