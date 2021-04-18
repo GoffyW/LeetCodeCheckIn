@@ -16,7 +16,7 @@ public class TwoSum1 {
         int[] nums = {2, 7, 11, 15};
         int target = 9;
 
-        System.out.println(twoSum(nums, target));
+        //System.out.println(twoSum(nums, target));
         /*for(int i = 0; i < 10; i++) {
             map.put(i, "value" + i);
         }
@@ -49,6 +49,9 @@ public class TwoSum1 {
             }
         }
 */
+        for (int i : test2(nums, target)) {
+            System.out.println(i);
+        }
     }
     /**
      * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -125,5 +128,39 @@ public class TwoSum1 {
         //     }
         // }
         return indexs;
+    }
+    public static int [] test1(int[] nums,int target){
+        /**
+         * 暴力破解思路
+         * int [] nums = {2,7,12,16,18}  target = 9
+         * 首先循环第一次可以利用target减去数组中的一个数，再循环第二次
+         * 此方法是时间复杂度为O(n2)
+         */
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j <nums.length+1; j++) {
+                if (target-nums[i]==nums[j]){
+                    return new int[]{i,j};
+                }
+            }
+        }
+        return new int[0];
+    }
+    public static int [] test2(int[] nums,int target){
+        /**
+         * 利用hashmap思路
+         * hash算法存取时间复杂度都为O(1),双链表实现
+         * 先遍历，如果存在
+         * k 是值 v 是下标
+         */
+        Map<Integer,Integer> map = new HashMap<>(16);
+
+        for (int i = 0; i < nums.length; i++) {
+            int i1 = target - nums[i];
+            if (map.containsKey(i1)){
+                return new int[]{map.get(i1),i};
+            }
+            map.put(nums[i],i);
+        }
+        return new int[0];
     }
 }
