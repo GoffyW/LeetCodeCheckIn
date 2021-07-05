@@ -1,5 +1,7 @@
 package xiaomage;
 
+import xiaomage.list.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  *
