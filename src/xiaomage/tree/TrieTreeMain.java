@@ -10,5 +10,6 @@ package xiaomage.tree;
 public class TrieTreeMain {
     public static void main(String[] args) {
         TrieTree<Integer> tree = new TrieTree<>();
+        //tree.add("cat",1);
     }
 }
